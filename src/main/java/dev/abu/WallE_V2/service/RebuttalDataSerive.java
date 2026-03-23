@@ -1,0 +1,19 @@
+package dev.abu.WallE_V2.service;/*
+ *Created by Abuthair
+ * Date:23/03/2026
+ * time:20:41
+ *projectName:WallE_V2
+
+ */
+
+import dev.abu.WallE_V2.dto.RebuttalDataDTO;
+
+import java.util.List;
+
+public interface RebuttalDataSerive {
+
+    RebuttalDataDTO create(RebuttalDataDTO dataDTO);
+    List<RebuttalDataDTO> createBulk(List<RebuttalDataDTO> dtos);
+    List<RebuttalDataDTO> getAll();
+    RebuttalDataDTO getById(Integer id);
+}
