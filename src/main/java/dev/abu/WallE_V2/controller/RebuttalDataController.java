@@ -35,8 +35,10 @@ public class RebuttalDataController {
     List<RebuttalDataDTO> getAll(){
         return service.getAll();
     }
-    @GetMapping("/{id}")
-    List<RebuttalDataDTO> getById(Integer id){
-        return service.getAll();
+
+    //http://localhost:8080/api/rebuttal/id/6
+    @GetMapping("/id/{id}")
+    RebuttalDataDTO getById(@PathVariable Integer id){
+        return service.getById(id);
     }
 }

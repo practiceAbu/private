@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class RebuttalDataSeriveImpl implements RebuttalDataSerive{
+public class RebuttalDataSeriveImpl implements RebuttalDataSerive {
     @Autowired
     RebuttalDataRepository repository;
 
@@ -112,11 +112,13 @@ public class RebuttalDataSeriveImpl implements RebuttalDataSerive{
             return dto;
         }).collect(Collectors.toList());
     }
+
     public List<RebuttalDataDTO> getAll() {
         return repository.findAll().stream().map(entity -> {
             RebuttalDataDTO dto = new RebuttalDataDTO();
 
             dto.setAsin(entity.getAsin());
+            dto.setWorkStream(entity.getWorkStream());
             dto.setQuarCode(entity.getQuarCode());
             dto.setQuarComment(entity.getQuarComment());
             dto.setOperCode(entity.getOperCode());
@@ -142,8 +144,35 @@ public class RebuttalDataSeriveImpl implements RebuttalDataSerive{
         }).toList();
     }
 
-    @Override
     public RebuttalDataDTO getById(Integer id) {
-        return null;
+        RebuttalData entity = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Data not found"));
+
+        RebuttalDataDTO dto = new RebuttalDataDTO();
+
+        dto.setAsin(entity.getAsin());
+        dto.setWorkStream(entity.getWorkStream());
+        dto.setQuarCode(entity.getQuarCode());
+        dto.setQuarComment(entity.getQuarComment());
+        dto.setOperCode(entity.getOperCode());
+        dto.setOperComment(entity.getOperComment());
+        dto.setSmeCode(entity.getSmeCode());
+        dto.setSmeComment(entity.getSmeComment());
+        dto.setFinalCode(entity.getFinalCode());
+        dto.setFinalCodeRefComment(entity.getFinalCodeRefComment());
+        dto.setClosedAs(entity.getClosedAs());
+
+        if (entity.getImages() != null) {
+            dto.setImages(entity.getImages().stream().map(img -> {
+                DataImageDTO imgDto = new DataImageDTO();
+                imgDto.setImageTag(img.getImageTag());
+                imgDto.setImageUrl(img.getImageUrl());
+                return imgDto;
+            }).toList());
+        }
+
+        return dto;
     }
-}
+
+
+    }
