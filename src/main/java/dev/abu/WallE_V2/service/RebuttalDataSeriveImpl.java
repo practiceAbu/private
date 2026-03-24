@@ -267,4 +267,37 @@ public class RebuttalDataSeriveImpl implements RebuttalDataSerive {
         }
         return response;
     }
+
+    @Override
+    public List<RebuttalDataDTO > getByWorkStream(String workStream) {
+        List<RebuttalData> list = repository.findByWorkStream(workStream);
+
+        return list.stream().map(entity -> {
+            RebuttalDataDTO dto = new RebuttalDataDTO();
+
+            dto.setAsin(entity.getAsin());
+            dto.setWorkStream(entity.getWorkStream());
+            dto.setQuarCode(entity.getQuarCode());
+            dto.setQuarComment(entity.getQuarComment());
+            dto.setOperCode(entity.getOperCode());
+            dto.setOperComment(entity.getOperComment());
+            dto.setSmeCode(entity.getSmeCode());
+            dto.setSmeComment(entity.getSmeComment());
+            dto.setFinalCode(entity.getFinalCode());
+            dto.setFinalCodeRefComment(entity.getFinalCodeRefComment());
+            dto.setClosedAs(entity.getClosedAs());
+            if (entity.getImages() != null && !entity.getImages().isEmpty()) {
+
+                List<DataImageDTO> imageDTOs = entity.getImages().stream().map(img -> {
+                    DataImageDTO imgDto = new DataImageDTO();
+                    imgDto.setImageTag(img.getImageTag());
+                    imgDto.setImageUrl(img.getImageUrl());
+                    return imgDto;
+                }).toList();
+
+                dto.setImages(imageDTOs);
+            }
+            return dto;
+        }).toList();
+    }
 }

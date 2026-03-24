@@ -70,4 +70,11 @@ public class RebuttalDataController {
     public Map<String, Long> getClosedAsCount() {
         return service.getClosedAsCount();
     }
+
+
+    //http://localhost:8080/api/rebuttal/workstream/{workStream}
+    @GetMapping("/workstream/{workStream}")
+    public List<RebuttalDataDTO> getByWorkStream(@PathVariable String workStream) {
+        return service.getByWorkStream(workStream);
+    }
 }

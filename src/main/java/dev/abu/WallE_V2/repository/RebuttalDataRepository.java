@@ -15,4 +15,8 @@ import java.util.List;
 public interface  RebuttalDataRepository extends JpaRepository<RebuttalData,Integer> {
     @Query("SELECT r.closedAs, COUNT(r) FROM RebuttalData r GROUP BY r.closedAs")
     List<Object[]> countByClosedAs();
+
+    List<RebuttalData> findByWorkStream(String workStream);
+
+
 }

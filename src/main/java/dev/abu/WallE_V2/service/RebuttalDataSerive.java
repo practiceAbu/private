@@ -7,6 +7,7 @@ package dev.abu.WallE_V2.service;/*
  */
 
 import dev.abu.WallE_V2.dto.RebuttalDataDTO;
+import dev.abu.WallE_V2.model.RebuttalData;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -26,6 +27,8 @@ public interface RebuttalDataSerive {
     Page<RebuttalDataDTO> getAllPages(int page, int size);
 
     public Map<String, Long> getClosedAsCount();
+
+    List<RebuttalDataDTO> getByWorkStream(String workStream);
 
 
 }
