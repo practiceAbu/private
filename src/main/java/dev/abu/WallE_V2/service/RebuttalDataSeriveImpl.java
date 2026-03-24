@@ -180,5 +180,38 @@ public class RebuttalDataSeriveImpl implements RebuttalDataSerive {
         repository.delete(entity);
     }
 
+    @Override
+    public RebuttalDataDTO update(Integer id, RebuttalDataDTO dto) {
+        RebuttalData entity = repository.findById(id).orElseThrow(()-> new RuntimeException("Data not found"));
+        entity.setAsin(dto.getAsin());
+        entity.setWorkStream(dto.getWorkStream());
+        entity.setQuarCode(dto.getQuarCode());
+        entity.setQuarComment(dto.getQuarComment());
+        entity.setOperCode(dto.getOperCode());
+        entity.setOperComment(dto.getOperComment());
+        entity.setSmeComment(dto.getSmeComment());
+        entity.setFinalCode(dto.getFinalCode());
+        entity.setFinalCodeRefComment(dto.getFinalCodeRefComment());
+        entity.setClosedAs(dto.getClosedAs());
+
+        entity.getImages().clear();
+
+        if (dto.getImages() != null) {
+            List<DataImage> images = dto.getImages().stream().map(imgDto -> {
+                DataImage img = new DataImage();
+                img.setImageTag(imgDto.getImageTag());
+                img.setImageUrl(imgDto.getImageUrl());
+                img.setRebuttalData(entity);
+                return img;
+            }).toList();
+
+            entity.getImages().addAll(images);
+        }
+
+        repository.save(entity);
+
+        return dto;
+    }
+
 
 }

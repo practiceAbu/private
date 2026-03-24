@@ -18,4 +18,7 @@ public interface RebuttalDataSerive {
     RebuttalDataDTO getById(Integer id);
 
     void delete(Integer id);
+
+    RebuttalDataDTO update(Integer id, RebuttalDataDTO dto);
+
 }

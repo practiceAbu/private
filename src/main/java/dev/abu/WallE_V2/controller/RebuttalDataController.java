@@ -47,4 +47,10 @@ public class RebuttalDataController {
     public void delete(@PathVariable Integer id){
         service.delete(id);
     }
+
+    @PutMapping("/Update/id/{id}")
+    public RebuttalDataDTO update(@PathVariable Integer id,
+                                  @RequestBody RebuttalDataDTO dto) {
+        return service.update(id, dto);
+    }
 }
