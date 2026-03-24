@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/rebuttal")
@@ -62,5 +63,11 @@ public class RebuttalDataController {
             @RequestParam(defaultValue = "5") int size) {
 
         return service.getAllPages(page, size);
+    }
+
+    //http://localhost:8080/api/rebuttal/dashboard/count-by-status
+    @GetMapping("/dashboard/count-by-status")
+    public Map<String, Long> getClosedAsCount() {
+        return service.getClosedAsCount();
     }
 }

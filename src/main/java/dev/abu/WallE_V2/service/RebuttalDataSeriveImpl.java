@@ -17,7 +17,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -251,5 +253,18 @@ public class RebuttalDataSeriveImpl implements RebuttalDataSerive {
 
             return dto;
         });
+    }
+
+
+    public Map<String, Long> getClosedAsCount(){
+        List<Object[]> result = repository.countByClosedAs();
+        Map<String,Long> response = new HashMap<>();
+        for (Object[] row : result){
+            String status = (String) row[0];
+            Long count = (Long) row[1];
+            response.put(status,count);
+
+        }
+        return response;
     }
 }

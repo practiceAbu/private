@@ -10,6 +10,7 @@ import dev.abu.WallE_V2.dto.RebuttalDataDTO;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Map;
 
 public interface RebuttalDataSerive {
 
@@ -23,6 +24,8 @@ public interface RebuttalDataSerive {
     RebuttalDataDTO update(Integer id, RebuttalDataDTO dto);
 
     Page<RebuttalDataDTO> getAllPages(int page, int size);
+
+    public Map<String, Long> getClosedAsCount();
 
 
 }

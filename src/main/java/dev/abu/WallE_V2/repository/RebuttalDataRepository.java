@@ -8,6 +8,11 @@ package dev.abu.WallE_V2.repository;/*
 
 import dev.abu.WallE_V2.model.RebuttalData;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 public interface  RebuttalDataRepository extends JpaRepository<RebuttalData,Integer> {
+    @Query("SELECT r.closedAs, COUNT(r) FROM RebuttalData r GROUP BY r.closedAs")
+    List<Object[]> countByClosedAs();
 }
