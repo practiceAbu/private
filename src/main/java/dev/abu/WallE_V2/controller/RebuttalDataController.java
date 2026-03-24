@@ -41,4 +41,10 @@ public class RebuttalDataController {
     RebuttalDataDTO getById(@PathVariable Integer id){
         return service.getById(id);
     }
+
+    //http://localhost:8080/api/rebuttal/Delete/id/{id}
+    @DeleteMapping("/Delete/id/{id}")
+    public void delete(@PathVariable Integer id){
+        service.delete(id);
+    }
 }

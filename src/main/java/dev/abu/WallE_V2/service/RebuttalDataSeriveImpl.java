@@ -174,5 +174,11 @@ public class RebuttalDataSeriveImpl implements RebuttalDataSerive {
         return dto;
     }
 
-
+    @Override
+    public void delete(Integer id) {
+        RebuttalData entity = repository.findById(id).orElseThrow(()-> new RuntimeException("Data not found"));
+        repository.delete(entity);
     }
+
+
+}

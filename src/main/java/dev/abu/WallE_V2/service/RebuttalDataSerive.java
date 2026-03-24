@@ -16,4 +16,6 @@ public interface RebuttalDataSerive {
     List<RebuttalDataDTO> createBulk(List<RebuttalDataDTO> dtos);
     List<RebuttalDataDTO> getAll();
     RebuttalDataDTO getById(Integer id);
+
+    void delete(Integer id);
 }
