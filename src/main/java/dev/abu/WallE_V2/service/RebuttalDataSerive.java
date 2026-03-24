@@ -7,6 +7,7 @@ package dev.abu.WallE_V2.service;/*
  */
 
 import dev.abu.WallE_V2.dto.RebuttalDataDTO;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -20,5 +21,8 @@ public interface RebuttalDataSerive {
     void delete(Integer id);
 
     RebuttalDataDTO update(Integer id, RebuttalDataDTO dto);
+
+    Page<RebuttalDataDTO> getAllPages(int page, int size);
+
 
 }

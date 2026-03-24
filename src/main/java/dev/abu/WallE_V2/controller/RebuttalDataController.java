@@ -9,6 +9,7 @@ package dev.abu.WallE_V2.controller;/*
 import dev.abu.WallE_V2.dto.RebuttalDataDTO;
 import dev.abu.WallE_V2.service.RebuttalDataSerive;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,9 +49,18 @@ public class RebuttalDataController {
         service.delete(id);
     }
 
+    //http://localhost:8080/api/rebuttal/Update/id/{id}
     @PutMapping("/Update/id/{id}")
     public RebuttalDataDTO update(@PathVariable Integer id,
                                   @RequestBody RebuttalDataDTO dto) {
         return service.update(id, dto);
+    }
+    //http://localhost:8080/api/rebuttal/page
+    @GetMapping("/page")
+    public Page<RebuttalDataDTO> getAllPages(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+
+        return service.getAllPages(page, size);
     }
 }

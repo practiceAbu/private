@@ -12,6 +12,9 @@ import dev.abu.WallE_V2.model.DataImage;
 import dev.abu.WallE_V2.model.RebuttalData;
 import dev.abu.WallE_V2.repository.RebuttalDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -213,5 +216,40 @@ public class RebuttalDataSeriveImpl implements RebuttalDataSerive {
         return dto;
     }
 
+    @Override
+    public Page<RebuttalDataDTO> getAllPages(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<RebuttalData> entityPage = repository.findAll(pageable);
+        return entityPage.map(entity -> {
 
+            RebuttalDataDTO dto = new RebuttalDataDTO();
+
+            dto.setAsin(entity.getAsin());
+            dto.setWorkStream(entity.getWorkStream());
+            dto.setQuarCode(entity.getQuarCode());
+            dto.setQuarComment(entity.getQuarComment());
+            dto.setOperCode(entity.getOperCode());
+            dto.setOperComment(entity.getOperComment());
+            dto.setSmeCode(entity.getSmeCode());
+            dto.setSmeComment(entity.getSmeComment());
+            dto.setFinalCode(entity.getFinalCode());
+            dto.setFinalCodeRefComment(entity.getFinalCodeRefComment());
+            dto.setClosedAs(entity.getClosedAs());
+
+            // ✅ ADD IMAGES HERE
+            if (entity.getImages() != null && !entity.getImages().isEmpty()) {
+
+                List<DataImageDTO> imageDTOs = entity.getImages().stream().map(img -> {
+                    DataImageDTO imgDto = new DataImageDTO();
+                    imgDto.setImageTag(img.getImageTag());
+                    imgDto.setImageUrl(img.getImageUrl());
+                    return imgDto;
+                }).toList();
+
+                dto.setImages(imageDTOs);
+            }
+
+            return dto;
+        });
+    }
 }
